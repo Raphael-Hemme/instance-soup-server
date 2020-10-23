@@ -1,0 +1,22 @@
+{
+  "name": "instance-soup-server",
+  "version": "1.0.0",
+  "description": "The back-end of the soup",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Raphael-Hemme/instance-soup-server.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Raphael-Hemme/instance-soup-server/issues"
+  },
+  "homepage": "https://github.com/Raphael-Hemme/instance-soup-server#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
