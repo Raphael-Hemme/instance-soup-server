@@ -17,16 +17,18 @@ app.use(
 
 app.get("/", (req, res) => {
   pool
-<<<<<<< HEAD
-  .query("SELECT * FROM soups")
-  .then((data) => res.send(data.rows))
-  .catch((err) => res.sendStatus(500));
-=======
-    .query("SELECT title FROM soups")
+    .query("SELECT * FROM soups")
     .then((data) => res.send(data.rows))
     .catch((err) => res.sendStatus(500));
->>>>>>> a9734b0334270c0c8921eb1d349e4d2c6b6a488d
 });
+
+app.get("/:id", (req, res) => {
+  const { id } = req.params;
+  pool
+    .query("SELECT * FROM soups WHERE id=$1", [id])
+    .then((data) => res.send(data.rows))
+    .catch((err) => res.sendStatus(500))
+})
 
 // app.get('/:id', (req, res) => {
 // const index = mockData.find(el =>  el.id === Number(req.params.id));
