@@ -9,7 +9,7 @@ const app = express();
 
 app.get('/', (req, res) => {
   pool
-  .query("SELECT title FROM soups")
+  .query("SELECT * FROM soups")
   .then((data) => res.send(data.rows))
   .catch((err) => res.sendStatus(500));
 });
