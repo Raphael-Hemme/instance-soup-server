@@ -1,17 +1,25 @@
 require("dotenv").config();
-const express = require('express');
-const mockData = require('./mockdata.js');
+const express = require("express");
+const mockData = require("./mockdata.js");
 const { Pool } = require("pg");
 const pool = new Pool();
+const cors = require("cors");
 
 //const noodleRouter = express.Router();
 const app = express();
 
-app.get('/', (req, res) => {
+app.use(
+  cors({
+    origin: "http://localhost:3000", // restrict calls only from this address
+    methods: "GET", // only allow GET requests
+  })
+);
+
+app.get("/", (req, res) => {
   pool
-  .query("SELECT title FROM soups")
-  .then((data) => res.send(data.rows))
-  .catch((err) => res.sendStatus(500));
+    .query("SELECT title FROM soups")
+    .then((data) => res.send(data.rows))
+    .catch((err) => res.sendStatus(500));
 });
 
 // app.get('/:id', (req, res) => {
@@ -27,8 +35,4 @@ app.get('/', (req, res) => {
 //   } */
 // })
 
-
 app.listen(3003);
-
-
-
