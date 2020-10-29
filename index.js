@@ -4,6 +4,9 @@ const mockData = require("./mockdata.js");
 const { Pool } = require("pg");
 const pool = new Pool();
 const cors = require("cors");
+const path = require("path")
+
+
 
 //const noodleRouter = express.Router();
 const app = express();
@@ -14,6 +17,8 @@ app.use(
     methods: "GET", // only allow GET requests
   })
 );
+
+app.use(express.static(path.join(__dirname, 'public')));
 
 app.get("/", (req, res) => {
   pool
@@ -28,6 +33,15 @@ app.get("/:id", (req, res) => {
     .query("SELECT * FROM soups WHERE id=$1", [id])
     .then((data) => res.send(data.rows))
     .catch((err) => res.sendStatus(500))
+})
+
+app.post("/add-new-soup", (req, res) => {
+  const body = req.body;
+  res.send(body)
+/*   pool
+    .query("INSERT INTO soups WHERE id=$1", [id])
+    .then((data) => res.send(data.rows))
+    .catch((err) => res.sendStatus(500)) */
 })
 
 // app.get('/:id', (req, res) => {
