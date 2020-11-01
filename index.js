@@ -4,6 +4,8 @@ const mockData = require("./mockdata.js");
 const { Pool } = require("pg");
 const pool = new Pool();
 const cors = require("cors");
+const path = require("path");
+const bodyParser = require("body-parser");
 
 //const noodleRouter = express.Router();
 const app = express();
@@ -15,11 +17,33 @@ app.use(
   })
 );
 
+app.use(bodyParser.json());
+
+app.use(express.static(path.join(__dirname, "public")));
+
 app.get("/", (req, res) => {
   pool
     .query("SELECT * FROM soups")
     .then((data) => res.send(data.rows))
     .catch((err) => res.sendStatus(500));
+});
+
+app.get("/:id", (req, res) => {
+  const { id } = req.params;
+  pool
+    .query("SELECT * FROM soups WHERE id=$1", [id])
+    .then((data) => res.send(data.rows))
+    .catch((err) => res.sendStatus(500));
+});
+
+app.post("/add-new-soup", (req, res) => {
+  res.send("HERE SHOULD BE OUR FORM DATA");
+  //res.end(JSON.stringify(req.body, null, 2));
+
+  /*   pool
+    .query("INSERT INTO soups WHERE id=$1", [id])
+    .then((data) => res.send(data.rows))
+    .catch((err) => res.sendStatus(500)) */
 });
 
 // app.get('/:id', (req, res) => {
